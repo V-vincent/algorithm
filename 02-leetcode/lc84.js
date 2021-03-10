@@ -54,7 +54,9 @@ var largestRectangleArea = function (heights) {
     // 并求以出栈元素为中心时，它的最大面积
     while (heights[i] < heights[stack[stack.length - 1]]) {
       let index = stack.pop(); // 取出栈顶元素
-      // 以出栈元素为中心求面积：当前元素（i）与栈顶元素（stack.length - 1）之间都是大于等于栈顶元素的值
+      // 以出栈元素为中心求面积：当前元素（i）与栈顶元素（stack[stack.length - 1]）之间都是大于等于栈顶元素的值
+      // 换句话说就是：当前元素（i）和栈顶元素（stack[stack.length - 1]）是左右两边第一个比出栈元素（index）小的值，
+      // 即i就是right，stack[stack.length - 1]就是left
       let tempArea = heights[index] * (i - stack[stack.length - 1] - 1);
       // console.log(`当前元素：${i}。出栈元素：下标：${index}，值：${heights[index]}，面积：${tempArea}`);
       max = Math.max(max, tempArea);
