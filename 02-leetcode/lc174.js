@@ -31,7 +31,7 @@ var calculateMinimumHP = function (dungeon) {
   let n = dungeon[0].length;
   let max = Number.MAX_VALUE;
   // 先建一个二维数组，填充每一个值都是最大值(求最小值填充最大值，求最大值填充0或最小值)
-  let dp = Array.from(m + 1); // 要超一个出来
+  let dp = Array.from(m + 1); // 要多一行出来
   for (let i = 0; i <= m; i++) {
     dp[i] = [];
     for (let j = 0; j <= n; j++) {
@@ -44,8 +44,8 @@ var calculateMinimumHP = function (dungeon) {
   // 再从公主哪里跑回起点
   for (let i = m - 1; i >= 0; i--) {
     for (let j = n - 1; j >= 0; j--) {
-      let temp = Math.min(dp[i][j + 1], dp[i + 1][j]) - dungeon[i][j];
-      dp[i][j] = Math.max(1, temp);
+      // let temp = Math.min(dp[i][j + 1], dp[i + 1][j]) - dungeon[i][j];
+      dp[i][j] = Math.max(1, Math.min(dp[i][j + 1], dp[i + 1][j]) - dungeon[i][j]);
     }
   }
   // console.log(dp)
