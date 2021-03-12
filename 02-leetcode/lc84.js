@@ -23,9 +23,11 @@ var largestRectangleArea = function (heights) {
   heights = [0, ...heights, 0];
   for (let i = 0; i < heights.length; i++) {
     let left = i, right = i;
+    // 往左找，找到第一个小于i的
     while (left > 0 && heights[left] >= heights[i]) {
       left--;
     }
+    // 往右找，找到第一个小于i的
     while (right < heights.length && heights[right] >= heights[i]) {
       right++;
     }
@@ -47,6 +49,7 @@ var largestRectangleArea = function (heights) {
   let max = 0;
   // 加这一行：考虑到只有一个元素([1])，或者所有元素都相同时([1, 1, 1])会出错
   heights = [0, ...heights, 0];
+  console.log(heights);
   // 用栈来记录数组元素的下标
   let stack = [];
   for (let i = 0; i < heights.length; i++) {
@@ -58,12 +61,12 @@ var largestRectangleArea = function (heights) {
       // 换句话说就是：当前元素（i）和栈顶元素（stack[stack.length - 1]）是左右两边第一个比出栈元素（index）小的值，
       // 即i就是right，stack[stack.length - 1]就是left
       let tempArea = heights[index] * (i - stack[stack.length - 1] - 1);
-      // console.log(`当前元素：${i}。出栈元素：下标：${index}，值：${heights[index]}，面积：${tempArea}`);
+      console.log(`当前元素：${i}。出栈元素：下标：${index}，值：${heights[index]}，面积：${tempArea}`);
       max = Math.max(max, tempArea);
     }
     // 当前元素大于栈顶元素或栈没有元素时，入栈
     stack.push(i);
-    // console.log('下标栈stack：', stack);
+    console.log('下标栈stack：', stack);
   }
   return max;
 };
