@@ -30,26 +30,6 @@ function transformStr(input) {
   console.log(arr.join(''));
 }
 
-// 最长回文子串
-function getMaxString(input) {
-  let res = '';
-  for (let i = 0; i < input.length - 1; i++) {
-    let odd = getPlalindrome(input, i, i);
-    let even = getPlalindrome(input, i, i + 1);
-    let temp = odd.length > even.length ? odd : even;
-    res = temp.length > res.length ? temp : res;
-  }
-  console.log(res.length);
-}
-// 找到回文子串
-function getPlalindrome(str, left, right) {
-  while (left >= 0 && right < str.length && str[left] == str[right]) {
-    left--;
-    right++;
-  }
-  return str.slice(left + 1, right);
-}
-
 // 输出转换成10进制的IP地址
 function ipToNumber(input) {
   let num = ''
