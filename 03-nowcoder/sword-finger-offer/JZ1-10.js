@@ -65,6 +65,18 @@ function printListFromTailToHead(head) {
 // 二叉树的前序遍历：根左右
 // 二叉树的中序遍历：左根右
 // 二叉树的的后序遍历：左右根
+/* function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} */
 function reConstructBinaryTree(pre, vin) {
-
+  if (!pre.length || !vin.length) return null;
+  let val = pre[0]
+  let node = new TreeNode(val);
+  // 前序的第一个是根节点，则中序遍历以根节点分开
+  let index = vin.indexOf(val);
+  node.left = reConstructBinaryTree(pre.slice(1, index + 1), vin.slice(0, index));
+  node.right = reConstructBinaryTree(pre.slice(index + 1), vin.slice(index + 1));
+  return node;
 }
