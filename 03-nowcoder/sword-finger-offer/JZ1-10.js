@@ -133,3 +133,26 @@ function minNumberInRotateArray(rotateArray) {
   return rotateArray[left];
 }
 console.log(minNumberInRotateArray(rotateArray));
+
+// JZ7	斐波那契数列	数组	入门
+// 大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0，第1项是1）。
+// n≤39
+
+// 示例1
+// 输入
+// 4
+// 返回值
+// 3
+// 斐波那契数列：第n项等于前两项相加之和
+function Fibonacci(n) {
+  if (n <= 1) return n;
+  let pre1 = 1;
+  let pre2 = 0;
+  let res;
+  for (let i = 2; i <= n; i++) {
+    res = pre1 + pre2;
+    pre2 = pre1;
+    pre1 = res;
+  }
+  return res;
+}
