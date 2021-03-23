@@ -80,3 +80,56 @@ function reConstructBinaryTree(pre, vin) {
   node.right = reConstructBinaryTree(pre.slice(index + 1), vin.slice(index + 1));
   return node;
 }
+
+// JZ5	用两个栈实现队列	栈	简单
+// 题目描述
+// 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。
+// 栈先进后出
+// 队列先进先出
+let inStack = [];
+let outStack = [];
+function push(node) {
+  inStack.push(node);
+}
+function pop() {
+  if (outStack.length) {
+    return outStack.pop();
+  }
+  while (inStack.length) {
+    outStack.push(inStack.pop())
+  }
+  return outStack.pop();
+}
+
+// JZ6	旋转数组的最小数字	二分	简单
+// 题目描述
+// 把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。
+// 输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。
+// NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。
+// 示例1
+// 输入
+// [3,4,5,1,2]
+// 返回值
+// 1
+
+// 局部有序：二分法变异
+let rotateArray = [3, 4, 5, 6, 7, 1, 2];
+function minNumberInRotateArray(rotateArray) {
+  if (!rotateArray.length) return 0;
+  let left = 0;
+  let right = rotateArray.length - 1;
+  let mid;
+  while (left < right) {
+    mid = left + parseInt((right - left) / 2);
+    // 找最小值：最后left的值为最小值
+    if (rotateArray[right] < rotateArray[mid]) {
+      left = mid + 1;
+    } else if (rotateArray[right] === rotateArray[mid]) {
+      right--;
+    } else {
+      right = mid;
+    }
+  }
+  return rotateArray[left];
+}
+console.log(minNumberInRotateArray(rotateArray));
