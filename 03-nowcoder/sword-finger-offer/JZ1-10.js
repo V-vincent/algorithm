@@ -156,3 +156,46 @@ function Fibonacci(n) {
   }
   return res;
 }
+
+// JZ8	跳台阶	递归	中等
+// 题目描述
+// 一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。
+function jumpFloor1(number) {
+  if (number <= 2) return number;
+  let pre1 = 2;
+  let pre2 = 1;
+  let temp;
+  for (let i = 3; i <= number; i++) {
+    temp = pre1 + pre2;
+    pre2 = pre1;
+    pre1 = temp;
+  }
+  return temp;
+}
+function jumpFloor(number) {
+  if (number <= 2) return number;
+  let dp = [0, 1, 2];
+  for (let i = 3; i <= number; i++) {
+    dp[i] = dp[i - 1] + dp[i - 2];
+  }
+  return dp[number];
+}
+
+// JZ9	变态跳台阶	贪心	简单
+// 题目描述
+// 一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。
+// 示例1
+// 输入
+// 3
+// 返回值
+// 4
+function jumpFloorII(number) {
+  if (number <= 2) return number;
+  let dp = [0, 1, 2];
+  for (let i = 3; i <= number; i++) {
+    dp[i] = dp.reduce((pre, cur) => pre + cur, 0) + 1;
+  }
+  return dp[number];
+  // if (number <= 2) return number;
+  // return 2 ** (number - 1);
+}
