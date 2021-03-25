@@ -199,3 +199,28 @@ function jumpFloorII(number) {
   // if (number <= 2) return number;
   // return 2 ** (number - 1);
 }
+
+// JZ10	矩形覆盖	递归	中等
+// 题目描述
+// 我们可以用2*1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2*1的小矩形无重叠地覆盖一个2*n的大矩形，总共有多少种方法？
+
+// 比如n=3时，2*3的矩形块有3种覆盖方法
+// 示例1
+// 输入
+// 4
+// 返回值
+// 5
+
+// jz8跳台阶的换一种问法
+function rectCover(number) {
+  if (number <= 2) return number;
+  let pre1 = 2;
+  let pre2 = 1;
+  let temp;
+  for (let i = 3; i <= number; i++) {
+    temp = pre1 + pre2;
+    pre2 = pre1;
+    pre1 = temp;
+  }
+  return temp;
+}
