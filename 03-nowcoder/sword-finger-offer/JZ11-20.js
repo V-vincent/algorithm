@@ -74,3 +74,108 @@ function Power(base, exponent) {
   // return base ** exponent;
   return Math.pow(base, exponent);
 }
+
+// JZ13	调整数组顺序使奇数位于偶数前面	数组	较难
+// 题目描述
+// 输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。
+// 示例1
+// 输入
+// [1,2,3,4]
+// 返回值
+// [1,3,2,4]
+/**
+ * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+ *
+ * 
+ * @param array int整型一维数组 
+ * @return int整型一维数组
+ */
+function reOrderArray(array) {
+  let even = [];
+  let odd = [];
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] % 2 === 0) {
+      even.push(array[i]);
+    } else {
+      odd.push(array[i]);
+    }
+  }
+  return odd.concat(even);
+}
+
+// JZ14	链表中倒数第k个结点	链表	中等
+// 题目描述
+// 输入一个链表，输出该链表中倒数第k个结点。
+// 如果该链表长度小于k，请返回空。
+// 示例1
+// 输入
+// {1,2,3,4,5},1 
+// 返回值
+// {5}
+/*
+ * function ListNode(x){
+ *   this.val = x;
+ *   this.next = null;
+ * }
+ */
+/**
+ * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+ *
+ * 
+ * @param pHead ListNode类 
+ * @param k int整型 
+ * @return ListNode类
+ */
+// 数组的解决方式
+function FindKthToTail(pHead, k) {
+  let arr = [];
+  while (pHead) {
+    arr.push(pHead);
+    pHead = pHead.next;
+  }
+  if (k > arr.length) {
+    return null
+  } else {
+    return arr[arr.length - k]
+  }
+}
+// 链表的方式
+function FindKthToTail(pHead, k) {
+  let first = pHead, res = pHead;
+  let n = 0;
+  while (k > 0) {
+    if (!first) return null;
+    else {
+      k--;
+      first = first.next;
+    }
+  }
+  while (first) {
+    res = res.next;
+    first = first.next;
+  }
+  return res;
+}
+
+// JZ15	反转链表	链表	中等
+// 题目描述
+// 输入一个链表，反转链表后，输出新链表的表头。
+// 示例1
+// 输入
+// {1,2,3}
+// 返回值
+// {3,2,1}
+/*function ListNode(x){
+    this.val = x;
+    this.next = null;
+}*/
+function ReverseList(pHead) {
+  let prev = null;
+  while (pHead) {
+    let temp = pHead;
+    pHead = pHead.next; // 循环跳出条件
+    temp.next = prev; // 1的next是null，2的next是1，3的next是2
+    prev = temp;
+  }
+  return prev
+}
