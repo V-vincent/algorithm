@@ -213,3 +213,122 @@ function Merge(pHead1, pHead2) {
   }
   return res.next;
 }
+
+// JZ17	树的子结构	树	较难
+// 题目描述
+// 输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）
+// 示例1
+// 输入
+// {8,8,#,9,#,2,#,5},{8,9,#,2}
+// 返回值
+// true
+function HasSubtree(pRoot1, pRoot2) {
+  if (!pRoot1 || !pRoot2) return false;
+  if (!compareTree(pRoot1, pRoot2)) {
+    return HasSubtree(pRoot1.left, pRoot2) || HasSubtree(pRoot1.right, pRoot2)
+  }
+  return true;
+
+  function compareTree(root1, root2) {
+    if (!root2) return true;
+    if (!root1) return false;
+    if (root1.val === root2.val) {
+      return compareTree(root1.left, root2.left) && compareTree(root1.right, root2.right)
+    }
+    return false;
+  }
+}
+
+// JZ18	二叉树的镜像	树	简单
+// 操作给定的二叉树，将其变换为源二叉树的镜像。
+// 比如：    源二叉树 
+//             8
+//            /  \
+//           6   10
+//          / \  / \
+//         5  7 9 11
+//         镜像二叉树
+//             8
+//            /  \
+//           10   6
+//          / \  / \
+//         11 9 7  5
+// 示例1
+// 输入
+// {8,6,10,5,7,9,11}
+// 返回值
+// {8,10,6,11,9,7,5}
+
+function TreeNode(x) {
+  this.val = x;
+  this.left = null;
+  this.right = null;
+}
+
+/**
+* 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+* @param pRoot TreeNode类 
+* @return TreeNode类
+*/
+function Mirror(pRoot) {
+  if (!pRoot) return null;
+  let res = new TreeNode(pRoot.val);
+  res.left = Mirror(pRoot.right);
+  res.right = Mirror(pRoot.left);
+  return res;
+}
+function Mirror1(pRoot) {
+  if (!pRoot) return null;
+  let temp = pRoot.left;
+  pRoot.left = pRoot.right;
+  pRoot.right = temp;
+  Mirror(pRoot.right);
+  Mirror(pRoot.left);
+  return pRoot;
+}
+
+// JZ19	顺时针打印矩阵	数组	较难
+// 题目描述
+// 输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字，例如，如果输入如下4 X 4矩阵： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 则依次打印出数字1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10.
+// 示例1
+// 输入
+// [[1,2],[3,4]]
+// 返回值
+// [1,2,4,3]
+let arr = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+arr = [[1, 2], [3, 4]];
+arr = [[1, 2, 3, 4, 5]];
+arr = [[1], [2], [3], [4], [5]];
+arr = [[1, 2], [3, 4], [5, 6]];
+function printMatrix(matrix) {
+  if (!matrix.length) return matrix;
+  let res = [];
+  let top = 0;
+  let bottom = matrix.length - 1;
+  let left = 0;
+  let right = matrix[0].length - 1;
+  while (left <= right && top <= bottom) {
+    // 左-右
+    for (let i = left; i <= right; i++) {
+      res.push(matrix[top][i]);
+    }
+    top++;
+    // 上-下
+    for (let i = top; i <= bottom; i++) {
+      res.push(matrix[i][right]);
+    }
+    right--;
+    if (left > right || top > bottom) break;
+    // 右-左
+    for (let i = right; i >= left; i--) {
+      res.push(matrix[bottom][i]);
+    }
+    bottom--;
+    // 下-上
+    for (let i = bottom; i >= top; i--) {
+      res.push(matrix[i][left]);
+    }
+    left++;
+  }
+  return res
+}
