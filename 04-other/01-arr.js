@@ -19,3 +19,25 @@ function concatArr(arr1, arr2) {
   return res;
 }
 console.log(concatArr(arr1, arr2));
+
+// 使用迭代的方式实现 flatten 函数
+let arr = [1, 2, 3, [4, 5], [6, [7, [8]]]];
+function flatten(arr) {
+  while (arr.some(item => Array.isArray(item))) {
+    arr = [].concat(...arr)
+  }
+  return arr;
+}
+// 递归实现
+function flatten1(arr) {
+  let arrs = [];
+  arr.map(item => {
+    if (Array.isArray(item)) {
+      arrs.push(...flatten(item))
+    } else {
+      arrs.push(item)
+    }
+  })
+  return arrs
+}
+console.log(flatten1(arr));
