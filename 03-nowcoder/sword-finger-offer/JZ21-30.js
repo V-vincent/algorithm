@@ -45,3 +45,48 @@ function PrintFromTopToBottom(root) {
   }
   return res;
 }
+
+// JZ23	二叉搜索树的后序遍历序列	栈树	较难
+// 题目描述
+// 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则返回true,否则返回false。假设输入的数组的任意两个数字都互不相同。（ps：我们约定空树不是二叉搜素树）
+// 示例1
+// 输入
+// [4,8,6,12,16,14,10]
+// 返回值
+// true
+// 思路
+// 1.最后一个元素是根元素
+// 2.比根元素小的是左子树，比根元素大的是右子树
+
+// slice(start, end); 截取从第start个到第end个元素，不会改变原数组
+// splice(index,howmany,item1,.....,itemX) 方法向/从数组中添加/删除项目，然后返回被删除的项目，会改变原始数组
+// index 必需。整数，规定添加/删除项目的位置，使用负数可从数组结尾处规定位置。
+// howmany 必需。要删除的项目数量。如果设置为 0，则不会删除项目。
+let sequence = [4, 8, 6, 12, 16, 14, 10]
+function VerifySquenceOfBST(sequence) {
+  let len = sequence.length;
+  if (len === 1) return true;
+  if (len === 0) return false;
+  let root = sequence[len - 1];
+  // 分左右
+  let leftIndex = 0;
+  for (let i = 0; i < len - 1; i++) {
+    if (sequence[i] < root) {
+      leftIndex++;
+    } else {
+      break;
+    }
+  }
+  // 右边树有小于根元素的直接返回false
+  for (let i = leftIndex + 1; i < len - 1; i++) {
+    if (sequence[i] < root) {
+      return false;
+    }
+  }
+  // 全左或全右
+  if (leftIndex === 0 || leftIndex === len - 1) {
+    return VerifySquenceOfBST(sequence.slice(0, len - 1))
+  } else {
+    return VerifySquenceOfBST(sequence.slice(0, leftIndex)) && VerifySquenceOfBST(sequence.slice(leftIndex, len - 1))
+  }
+}
