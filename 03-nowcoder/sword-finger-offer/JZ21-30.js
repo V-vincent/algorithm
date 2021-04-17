@@ -90,3 +90,36 @@ function VerifySquenceOfBST(sequence) {
     return VerifySquenceOfBST(sequence.slice(0, leftIndex)) && VerifySquenceOfBST(sequence.slice(leftIndex, len - 1))
   }
 }
+
+// JZ24	二叉树中和为某一值的路径	树	较难
+// 输入一颗二叉树的根节点和一个整数，按字典序打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。
+// 示例1
+// 输入
+// {10,5,12,4,7},22
+// 返回值
+// [[10,5,7],[10,12]]
+// 示例2
+// 输入
+// {10,5,12,4,7},15
+// 返回值
+// []
+// 思路：递归遍历，到没有子节点，之后求和对比
+function FindPath(root, expectNumber) {
+  let res = [];
+  if (!root) return res;
+  function dfs(root, path) {
+    path.push(root.val);
+    if (!root.left && !root.right) {
+      let sum = path.reduce((pre, cur) => {
+        return pre + cur;
+      }, 0);
+      if (sum === expectNumber) {
+        res.push(path)
+      }
+    }
+    if (root.left) dfs(root.left, [...path]);
+    if (root.right) dfs(root.right, [...path])
+  }
+  dfs(root, [])
+  return res;
+}
