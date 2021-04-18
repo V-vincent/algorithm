@@ -178,3 +178,26 @@ function Permutation(str) {
   dfs('', str);
   return Array.from(set);
 }
+
+// JZ28	数组中出现次数超过一半的数字	数组哈希	简单
+// 题目描述
+// 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。
+// 示例1
+// 输入
+// [1,2,3,2,2,2,5,4,2]
+// 返回值
+// 2
+function MoreThanHalfNum_Solution(numbers) {
+  let len = numbers.length;
+  if (!len) return 0;
+  let obj = {};
+  for (let i = 0; i < len; i++) {
+    if (obj[numbers[i]]) {
+      obj[numbers[i]]++;
+    } else {
+      obj[numbers[i]] = 1;
+    }
+    if (obj[numbers[i]] > (len / 2)) return numbers[i];
+  }
+  return 0;
+}
