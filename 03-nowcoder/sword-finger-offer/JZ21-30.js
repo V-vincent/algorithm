@@ -201,3 +201,18 @@ function MoreThanHalfNum_Solution(numbers) {
   }
   return 0;
 }
+
+// JZ29	最小的K个数	堆排序分治	中等
+// 题目描述
+// 给定一个数组，找出其中最小的K个数。例如数组元素是4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4。如果K>数组的长度，那么返回一个空的数组
+// 示例1
+// 输入
+// [4,5,1,6,2,7,3,8],4 
+// 返回值
+// [1,2,3,4]
+// 先排序再截取
+function GetLeastNumbers_Solution(input, k) {
+  if (input.length < k) return [];
+  let res = input.sort((a, b) => a - b).splice(0, k)
+  return res;
+}
