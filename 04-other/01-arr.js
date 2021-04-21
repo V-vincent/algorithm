@@ -70,3 +70,29 @@ function getArrIntersect(nums1, nums2) {
   return res;
 }
 console.log(getArrIntersect(nums1, nums2))
+
+// 数组随机排列
+// 随机生成一个长度为 10 的整数类型的数组，例如 [2, 10, 3, 4, 5, 11, 10, 11, 20]，
+// 将其排列成一个新数组，要求新数组形式如下，例如 [[2, 3, 4, 5], [10, 11], [20]]。
+// 随机生成，分割层级？
+function randomNewArr() {
+  // 生成10个随机数的数组
+  let arr = Array.from({ length: 10 }, (v) => { return parseInt(Math.random() * 30) });
+  // 排序去重
+  let temp = Array.from(new Set(arr)).sort((a, b) => a - b);
+  // 分割层级
+  let obj = {};
+  for (let i = 0; i < temp.length; i++) {
+    let key = Math.floor(temp[i] / 10);
+    if (!obj[key]) {
+      obj[key] = [];
+    }
+    obj[key].push(temp[i]);
+  }
+  // 输出数组
+  let res = [];
+  for(let key in obj) {
+    res.push(obj[key])
+  }
+  return res;
+}
