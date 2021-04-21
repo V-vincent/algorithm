@@ -12,3 +12,10 @@ function wordNegation(word) {
   }
   return res;
 }
+function wordNegation1(word) {
+  let res = ''
+  for (let i = 0; i < word.length; i++) {
+    res += word[i] === word[i].toLowerCase() ? word[i].toUpperCase() : word[i].toLowerCase();
+  }
+  return res;
+}
