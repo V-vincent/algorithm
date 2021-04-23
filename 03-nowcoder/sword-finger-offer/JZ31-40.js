@@ -27,3 +27,29 @@ function NumberOf1Between1AndN_Solution(n) {
   }
   return res;
 }
+
+// JZ32	把数组排成最小的数	数组	较难
+// 题目描述
+// 输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。
+// 示例1
+// 输入
+// [3,32,321]
+// 返回值
+// "321323"
+function PrintMinNumber(numbers) {
+  // 这个就是冒泡排序吧
+  let len = numbers.length;
+  while (len > 1) {
+    for (let i = 0; i < len - 1; i++) {
+      if (parseInt(numbers[i] + '' + numbers[i + 1]) > parseInt(numbers[i + 1] + '' + numbers[i])) {
+        [numbers[i], numbers[i + 1]] = [numbers[i + 1], numbers[i]]
+      }
+    }
+    len--;
+  }
+  return numbers.join('');
+  // numbers.sort((a, b) => {
+  //   return `${a}${b}` > `${b}${a}` ? 1 : -1;
+  // })
+  // return numbers.join('');
+}
