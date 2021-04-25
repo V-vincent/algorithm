@@ -32,3 +32,10 @@ function find(S, T) {
 }
 // search() 方法用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串
 let find1 = (S, T) => S.search(T);
+
+// 打印出 1 - 10000 之间的所有对称数
+function getSymmetryNum() {
+  return [...Array(10000).keys()].filter(item => {
+    return item > 10 && item === Number(item.toString().split('').reverse().join(''));
+  })
+}
