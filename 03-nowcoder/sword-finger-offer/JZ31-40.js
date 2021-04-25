@@ -117,3 +117,37 @@ function FindFirstCommonNode(pHead1, pHead2) {
   }
   return p1;
 }
+
+// JZ37	数字在排序数组中出现的次数	数组二分	中等
+// 题目描述
+// 统计一个数字在升序数组中出现的次数。
+// 示例1
+// 输入
+// [1,2,3,3,3,3,4,5],3
+// 返回值
+// 4
+function GetNumberOfK(data, k) {
+  // 二分法
+  let len = data.length;
+  // 找第一个小于k的值的位置
+  let leftS = 0, rightS = len - 1;
+  while (leftS <= rightS) {
+    let mid = leftS + Math.floor((rightS - leftS) / 2);
+    if (data[mid] >= k) {
+      rightS = mid - 1;
+    } else {
+      leftS = mid + 1;
+    }
+  }
+  // 找第一个大于k的值的位置
+  let leftB = leftS, rightB = len - 1;
+  while (leftB <= rightB) {
+    let mid = leftB + Math.floor((rightB - leftB) / 2);
+    if (data[mid] <= k) {
+      leftB = mid + 1;
+    } else {
+      rightB = mid - 1;
+    }
+  }
+  return leftB - leftS;
+}
