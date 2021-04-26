@@ -183,3 +183,29 @@ function IsBalanced_Solution(pRoot) {
   let right = TreeDepth(pRoot.right);
   return Math.abs(left - right) <= 1;
 }
+
+// JZ40	数组中只出现一次的数字	哈希位运算	中等
+// 题目描述
+// 一个整型数组里除了两个数字只出现一次，其他的数字都出现了两次。请写程序找出这两个只出现一次的数字。
+// 示例1
+// 输入
+// [1,4,1,6]
+// 返回值
+// [4,6]
+// 说明
+// 返回的结果中较小的数排在前面  
+function FindNumsAppearOnce(array) {
+  array.sort((a, b) => a - b);
+  let res = [];
+  for (let i = 0; i < array.length - 1;) {
+    if (array[i] == array[i + 1]) {
+      i = i + 2;
+    } else {
+      res.push(array[i]);
+      i++;
+    }
+    if (i == array.length - 1) res.push(array[i]);
+    if (res.length == 2) return res;
+  }
+  return res;
+}
