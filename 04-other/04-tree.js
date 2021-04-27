@@ -68,3 +68,65 @@ function convert(list) {
   return res;
 }
 convert(list);
+
+// 已知数据格式，实现一个函数 fn 找出链条中所有的父级 id
+const data = [{
+  id: '1',
+  name: 'test1',
+  children: [
+    {
+      id: '11',
+      name: 'test11',
+      children: [
+        {
+          id: '111',
+          name: 'test111'
+        },
+        {
+          id: '112',
+          name: 'test112'
+        }
+      ]
+    },
+    {
+      id: '12',
+      name: 'test12',
+      children: [
+        {
+          id: '121',
+          name: 'test121'
+        },
+        {
+          id: '122',
+          name: 'test122'
+        }
+      ]
+    }
+  ]
+}];
+
+function dfsFindPath(target, val) {
+  let stack = [...target];
+  while (stack.length) {
+    let cur = stack.pop();
+    if (cur.children) {
+      stack.push(...cur.children.map(item => ({ ...item, path: (cur.path || cur.id) + '-' + item.id })))
+    }
+    if (cur.id === val) return cur.path || cur.id;
+  }
+  return null;
+}
+console.log(dfsFindPath(data, '1222'));
+function bfsFindPath(target, val) {
+  let queue = [...target];
+  let index = 0;
+  while (index < queue.length) {
+    let cur = queue[index++];
+    if (cur.children) {
+      queue.push(...cur.children.map(item => ({ ...item, path: (cur.path || cur.id) + '-' + item.id })))
+    }
+    if (cur.id === val) return cur.path || cur.id;
+  }
+  return null;
+}
+console.log(bfsFindPath(data, '122'));
