@@ -160,3 +160,35 @@ function findTwoNum(nums, target) {
   }
   return [];
 }
+
+// 给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。
+// 请找出这两个有序数组的中位数。要求算法的时间复杂度为 O(log(m+n))。
+// 示例 1：
+// nums1 = [1, 3]
+// nums2 = [2]
+// 中位数是 2.0
+
+// 示例 2：
+// nums1 = [1, 2]
+// nums2 = [3, 4]
+// 中位数是(2 + 3) / 2 = 2.5
+function findMedianNum(nums1, nums2) {
+  let nums = [];
+  let num1 = 0, num2 = 0;
+  while (num1 < nums1.length && num2 < nums2.length) {
+    if (nums1[num1] < nums2[num2]) {
+      nums.push(nums1[num1++]);
+    } else {
+      nums.push(nums2[num2++]);
+    }
+  }
+  nums = nums.concat(nums1.slice(num1), nums2.slice(num2));
+  let median;
+  if (nums.length % 2) {
+    median = nums[Math.floor(nums.length % 2)]
+  } else {
+    let m = nums.length / 2;
+    median = (nums[m] + nums[m - 1]) / 2;
+  }
+  return median;
+}
