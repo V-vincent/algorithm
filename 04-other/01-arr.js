@@ -192,3 +192,59 @@ function findMedianNum(nums1, nums2) {
   }
   return median;
 }
+
+// 考虑到性能问题，如何快速从一个巨大的数组中随机获取部分元素
+// 比如有个数组有100K个元素，从中不重复随机选取10K个元素。
+// 1、
+// 可采用统计学中随机采样点的选取进行随机选取，
+// 如在0-50之间生成五个随机数，然后依次将每个随机数进行加50进行取值，性能应该是最好的。
+
+// 2、
+// 快速生成一个巨大数组 使用Array.from()
+// 通过Set特性，存放随机数，这里需要注意的是，没有就add，有就递归，
+// 总之要保证遍历的每一项都要找到一个唯一随机值，如果有就跳过就不能保证最后能获取到10k个值。
+const randomNumHandle = (len, randomNum) => {
+  // 快速生成一个有len个元素的巨大数组
+  let originArr = Array.from({ length: len }, (v, i) => i);
+  let resultSet = new Set()
+
+  // 快速选取randomNum个元素
+  for (let i = 0; i < randomNum; i++) {
+    addNum(resultSet, originArr)
+  }
+  function addNum() {
+    let luckDog = Math.floor(Math.random() * (len - 1))
+    if (!resultSet.has(originArr[luckDog])) {
+      resultSet.add(originArr[luckDog])
+    } else {
+      addNum()
+    }
+  }
+  return Array.from(resultSet)
+}
+
+/* 3、洗牌算法：
+    1.生成一个0 - arr.length 的随机数
+    2.交换该随机数位置元素和数组的最后一个元素，并把该随机位置的元素放入结果数组
+    3.生成一个0 - arr.length - 1 的随机数
+    4.交换该随机数位置元素和数组的倒数第二个元素，并把该随机位置的元素放入结果数组
+    依次类推，直至取完所需的10k个元素
+*/
+function shuffle(arr, size) {
+  let result = []
+  for (let i = 0; i < size; i++) {
+    const randomIndex = Math.floor(Math.random() * (arr.length - i))
+    const item = arr[randomIndex]
+    result.push(item)
+    arr[randomIndex] = arr[arr.length - 1 - i]
+    arr[arr.length - 1 - i] = item
+  }
+  return result
+}
+
+// 4、采用分治法，由于每一组只抽中一个，所以不存在重复的情况。
+/*
+* 用于将巨大的数组平均分成多个数组
+* 比如：100k个数中抽取10k，每个被抽中的概率为1/10。那么可以均分成10k个数组，每组10个数抽中1 
+* 个。以次类推，如果抽取1k个的话，每组100个抽中1个。
+*/
