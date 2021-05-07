@@ -116,7 +116,7 @@ function dfsFindPath(target, val) {
   }
   return null;
 }
-console.log(dfsFindPath(data, '1222'));
+// console.log(dfsFindPath(data, '1222'));
 function bfsFindPath(target, val) {
   let queue = [...target];
   let index = 0;
@@ -129,4 +129,83 @@ function bfsFindPath(target, val) {
   }
   return null;
 }
-console.log(bfsFindPath(data, '122'));
+// console.log(bfsFindPath(data, '122'));
+
+// 编程题，写个程序把 entry 转换成如下对象
+var entry = {
+  a: {
+    b: {
+      c: {
+        dd: 'abcdd'
+      }
+    },
+    d: {
+      xx: 'adxx'
+    },
+    e: 'ae'
+  }
+}
+// 要求转换成如下对象
+var output = {
+  'a.b.c.dd': 'abcdd',
+  'a.d.xx': 'adxx',
+  'a.e': 'ae'
+}
+
+function isObject(data) {
+  return toString.call(data) === '[object Object]'
+}
+function transform(obj) {
+  let res = {};
+  let stack = [obj];
+  while (stack.length) {
+    let item = stack.pop();
+    let path = item.path || '';
+    if (isObject(item)) {
+      for (let key in item) {
+        let itemP = (path ? path + '.' : '') + key;
+        if (isObject(item[key])) {
+          item[key]['path'] = itemP;
+          stack.push(item[key])
+        } else {
+          if (itemP.indexOf('path') == -1) res[itemP] = item[key];
+        }
+      }
+    }
+  }
+  return res;
+}
+// console.log(transform(entry));
+function flatObj(obj, parentKey = '', res = {}) {
+  for (let key in obj) {
+    let keyName = `${parentKey}${key}`;
+    if (isObject(obj[key])) {
+      flatObj(obj[key], keyName + '.', res);
+    } else {
+      res[keyName] = obj[key];
+    }
+  }
+  return res;
+}
+// console.log(flatObj(entry));
+
+// 以上题目的反转
+function removeFlatObj(obj) {
+  let map = {};
+  let temp = map;
+  for (let key in obj) {
+    let keys = key.split('.');
+    for (let i = 0; i < keys.length; i++) {
+      let item = keys[i];
+      if (i === keys.length - 1) {
+        temp[item] = obj[key];
+      } else {
+        temp[item] = temp[item] || {};
+      }
+      temp = temp[item];
+    }
+    temp = map;
+  }
+  return map;
+}
+console.log(removeFlatObj(output));
