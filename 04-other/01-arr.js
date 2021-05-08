@@ -248,3 +248,23 @@ function shuffle(arr, size) {
 * 比如：100k个数中抽取10k，每个被抽中的概率为1/10。那么可以均分成10k个数组，每组10个数抽中1 
 * 个。以次类推，如果抽取1k个的话，每组100个抽中1个。
 */
+
+
+// 根据以下要求，写一个数组去重函数
+// 如传入的数组元素为[123, "meili", "123", "mogu", 123]，则输出：[123, "meili", "123", "mogu"]
+// 如传入的数组元素为[123, [1, 2, 3], [1, "2", 3], [1, 2, 3], "meili"]，则输出：[123, [1, 2, 3], [1, "2", 3], "meili"]
+// 如传入的数组元素为[123, {a: 1}, {a: {b: 1}}, {a: "1"}, {a: {b: 1}}, "meili"]，则输出：[123, {a: 1}, {a: {b: 1}}, {a: "1"}, "meili"]
+// 判断对象
+function isObject(data) {
+  return toString.call(data) === '[object Object]'
+}
+// 对象重整 对key进行排序
+function parseObj(obj) {
+  let keys = Object.keys(obj).sort()
+  let newObj = {}
+  for (let key of keys) {
+    obj[key] = isObj(obj[key]) ? parseObj(obj[key]) : obj[key]
+    newObj[key] = obj[key]
+  }
+  return newObj;
+}
