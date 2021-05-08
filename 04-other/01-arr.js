@@ -263,8 +263,16 @@ function parseObj(obj) {
   let keys = Object.keys(obj).sort()
   let newObj = {}
   for (let key of keys) {
-    obj[key] = isObj(obj[key]) ? parseObj(obj[key]) : obj[key]
+    obj[key] = isObject(obj[key]) ? parseObj(obj[key]) : obj[key]
     newObj[key] = obj[key]
   }
   return newObj;
 }
+const startArr = [1, '1', { a: 1, b: "1" }, { b: '1', a: 1 }, { a: 1, b: 2 }, [1, 2, 3], null, undefined, undefined]
+function passArr(arr) {
+  let temp = arr.map(item => {
+    return isObject(item) ? JSON.stringify(parseObj(item)) : (!item ? item : JSON.stringify(item))
+  })
+  return [...new Set(temp)].map(item => !item ? item : JSON.parse(item));
+}
+console.log(passArr(startArr))
