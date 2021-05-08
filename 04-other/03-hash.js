@@ -53,3 +53,46 @@ function dfsReserve(num) {
     return `${num2}${dfsReserve(temp)}`
   }
 }
+
+// 找出字符串中连续出现最多的字符和个数
+// 'abcaakjbb' => {'a':2,'b':2}
+// 'abbkejsbcccwqaa' => {'c':3}
+// 1、顺序遍历
+function findMoreStr(str) {
+  let res = {};
+  let cur = str[0];
+  let count = 0;
+  let maxCount = 0;
+  for (let i = 0; i < str.length; i++) {
+    let item = str[i];
+    if (item == cur) {
+      count++;
+    } else {
+      count = 1;
+      cur = item;
+    }
+    if (count > maxCount) {
+      res = {};
+      res[item] = count;
+      maxCount = count;
+    }
+    if (count == maxCount) {
+      res[item] = count;
+    }
+  }
+  return res;
+}
+// 2、正则匹配
+function findMoreStr(str) {
+  // let arr = str.match(/(\w)\1*/g);
+  let arr = str.match(/(\w)\1+/g);
+  let maxLen = Math.max(...arr.map(item => item.length));
+  let res = {};
+  arr.map(item => {
+    if (item.length === maxLen) { 
+      res[item[0]] = maxLen;
+    }
+  })
+  return res;
+}
+console.log(findMoreStr('abbkejsbcccwqaa'))
