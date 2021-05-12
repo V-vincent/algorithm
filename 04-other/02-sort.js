@@ -36,4 +36,44 @@ function buddleSort1(arr) {
   }
   return arr;
 }
-console.log(buddleSort1(buddleArr))
+// console.log(buddleSort1(buddleArr))
+
+// 扑克牌问题
+// 有一堆扑克牌，将牌堆第一张放到桌子上，再将接下来的牌堆的第一张放到牌底，如此往复；
+// 最后桌子上的牌顺序为： (牌底) 1,2,3,4,5,6,7,8,9,10,11,12,13 (牌顶)；
+// 问：原来那堆牌的顺序，用函数实现
+// 放牌函数
+function poker(arr) {
+  let i = 1;
+  let res = [];
+  while (arr.length) {
+    if (i % 2) {
+      // 将牌堆第一张放到桌子上
+      res.push(arr.shift());
+    } else {
+      // 再将接下来的牌堆的第一张放到牌底
+      arr.push(arr.shift());
+    }
+    i++;
+  }
+  return res;
+}
+// 复原函数
+function reserve(arr) {
+  let i = 1;
+  let res = [];
+  while (arr.length) {
+    if (i % 2) {
+      res.unshift(arr.pop());
+    } else {
+      res.unshift(res.pop());
+    }
+    i++;
+  }
+  return res;
+}
+let pokerArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+// let reserveArr = reserve(pokerArr);
+// console.log(reserveArr);
+// let newArr = poker(reserveArr);
+// console.log(newArr);
