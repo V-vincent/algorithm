@@ -208,4 +208,24 @@ function removeFlatObj(obj) {
   }
   return map;
 }
-console.log(removeFlatObj(output));
+// console.log(removeFlatObj(output));
+
+// 如何将 [{id: 1}, {id: 2, pId: 1}, ...] 的重复数组（有重复数据）转成树形结构的数组 [{id: 1, child: [{id: 2, pId: 1}]}, ...] （需要去重）
+const treeArr = [{ id: 1 }, { id: 2, pId: 1 }, { id: 3, pId: 2 }, { id: 4 }, { id: 3, pId: 2 }, { id: 5, pId: 4 }]
+function arrToTree(arr) {
+  let res = [];
+  let map = {};
+  arr.map(item => {
+    map[item.id] = item;
+  })
+  for (const item of Object.values(map)) {
+    if (!item.pId) {
+      res.push(item);
+    } else {
+      map[item.pId].child = map[item.pId].child || [];
+      map[item.pId].child.push(item);
+    }
+  }
+  return res;
+}
+// console.log(arrToTree(treeArr))
