@@ -77,3 +77,14 @@ let pokerArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 // console.log(reserveArr);
 // let newArr = poker(reserveArr);
 // console.log(newArr);
+
+// 为红、黄、蓝三种颜色的球排序
+// 在一个字符串数组中有红、黄、蓝三种颜色的球，且个数不相等、顺序不一致，请为该数组排序。使得排序后数组中球的顺序为:黄、红、蓝。
+// 例如：红蓝蓝黄红黄蓝红红黄红，排序后为：黄黄黄红红红红红蓝蓝蓝。
+let strList = "红蓝蓝黄红黄蓝红红黄红";
+function sortBall(str) {
+  let arr = str.split('');
+  let rules = { '黄': 0, '红': 1, '蓝': 2, };
+  arr.sort((a, b) => rules[a] - rules[b]);
+  return arr.join('');
+}
