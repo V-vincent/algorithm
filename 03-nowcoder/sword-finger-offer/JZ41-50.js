@@ -149,9 +149,26 @@ function IsContinuous(numbers) {
 // 5,3
 // 返回值：
 // 3
-// 感觉还没搞懂呀
+
+// 小朋友编号：0,1,2,3,...,n-1
+// 指定数：m，从编号为0的小朋友开始报数，到m-1的要出列，就是要数m个数。
+// 0,1,2,3,4
+// 0,1,3,4
+// 1,3,4
+// 1,3
+// 3
+// 递归
+// f(n, m) = (m % n + x) % n = (m + x) % n
 function LastRemaining_Solution(n, m) {
-  // 迭代
+  // 没有小朋友，返回-1
+  if (n <= 0) return -1;
+  // 终止条件
+  if (n == 1) return 0;
+  // 递推公式：(m + x) % n
+  return (LastRemaining_Solution(n - 1, m) + m) % n;
+}
+// 迭代
+function LastRemaining_Solution(n, m) {
   if (n <= 0) return -1;
   let index = 0;
   for (let i = 2; i <= n; i++) {
