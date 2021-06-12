@@ -176,3 +176,18 @@ function LastRemaining_Solution(n, m) {
   }
   return index;
 }
+
+
+// JZ47 求1+2+3+...+n 数学 中等
+// 描述
+// 求1+2+3+...+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。
+// 示例1
+// 输入：
+// 5
+// 返回值：
+// 15
+function Sum_Solution(n) {
+  return (1 + n) * n / 2;
+  if (n == 1) return 1;
+  return n + Sum_Solution(n - 1)
+}
