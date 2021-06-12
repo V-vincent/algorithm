@@ -95,7 +95,7 @@ function findMoreStr(str) {
   })
   return res;
 }
-console.log(findMoreStr('abbkejsbcccwqaa'))
+// console.log(findMoreStr('abbkejsbcccwqaa'))
 
 // 统计 1 ~ n 整数中出现 1 的次数。
 // 统计每个位数上面1出现的次数
@@ -125,4 +125,33 @@ function statisticsAppearNum(num) {
     }
   }
   return res;
+}
+
+// 1234567890 -> 1,234,567,890
+// 数字添加千分位
+function numAddThousandCharacters(num) {
+  let res = "";
+  // 1、toLocaleString
+  // res = parseFloat(num).toLocaleString();
+  // 2、正则
+  // res = (num).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+  // 3、余数
+  // while (num > 1000) {
+  //   res = num % 1000 + (res ? ("," + res) : res);
+  //   num = parseInt(num / 1000)
+  // }
+  // res = num + (res ? ("," + res) : res);
+  // 4、字符串拼接
+  let num_str = num.toString();
+  while (num_str.length > 3) {
+    res = num_str.slice(-3) + (res ? ("," + res) : res);
+    num_str = num_str.slice(0, num_str.length - 3);
+  }
+  res = num_str + (res ? ("," + res) : res);
+  return res;
+}
+// console.log(numAddThousandCharacters(1234567890))
+// 数字去掉千分位
+function removeThousandSeparator(num) {
+  return Number(num.toString().replace(/,/g, ""));
 }
