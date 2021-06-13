@@ -38,3 +38,27 @@ function deleteDuplication(pHead) {
   }
   return res.next;
 }
+
+// JZ58 对称的二叉树 树 困难
+// 描述
+// 请实现一个函数，用来判断一棵二叉树是不是对称的。注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。
+// 示例1
+// 输入：
+// {8,6,6,5,7,7,5}
+// 返回值：
+// true
+// 示例2
+// 输入：
+// {8,6,9,5,7,7,5}
+// 返回值：
+// false
+function isSymmetrical(pRoot) {
+  if (!pRoot) return true;
+  function compare(left, right) {
+    if (!left && !right) return true;
+    if ((!left && right) || (left && !right)) return false;
+    if (left.val != right.val) return false;
+    return compare(left.left, right.right) && compare(left.right, right.left)
+  }
+  return compare(pRoot.left, pRoot.right);
+}
