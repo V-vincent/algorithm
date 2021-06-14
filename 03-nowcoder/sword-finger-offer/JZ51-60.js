@@ -62,3 +62,41 @@ function isSymmetrical(pRoot) {
   }
   return compare(pRoot.left, pRoot.right);
 }
+
+// JZ59 按之字形顺序打印二叉树 树 栈 较难
+// 描述
+// 请实现一个函数按照之字形打印二叉树，即第一行按照从左到右的顺序打印，第二层按照从右至左的顺序打印，第三行按照从左到右的顺序打印，其他行以此类推。
+// 示例1
+// 输入：
+// {8,6,10,5,7,9,11}
+// 返回值：
+// [[8],[10,6],[5,7,9,11]]
+// 广度优先遍历，利用队列
+function Print(pRoot) {
+  if (!pRoot) return [];
+  let res = [];
+  let queue = [pRoot];
+  let isRight = true;
+  while (queue.length) {
+    let temp = [];
+    let len = queue.length;
+    while (len) {
+      // 取出最前面的元素加入到 temp 中
+      let node = queue.shift();
+      temp.push(node.val);
+      // 把下一行加入队列中
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+      len--; // 仅加入当前行，把当前行的元素都加入（len = 0）后要换方向
+    }
+    if (isRight) {
+      res.push(temp)
+    } else {
+      res.push(temp.reverse())
+    }
+    // 遍历完每一行之后换方向
+    isRight = !isRight;
+  }
+  return res;
+}
+
