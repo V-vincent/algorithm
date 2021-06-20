@@ -34,6 +34,15 @@ var twoSum = function (nums, target) {
     }
   }
 };
+// 数组遍历
+var twoSum = function (nums, target) {
+  var arr = []
+  for (let i = 0; i < nums.length; i++) {
+    var res = arr.findIndex(item => item === nums[i])
+    if (res > -1) return [res, i]
+    arr[i] = target - nums[i]
+  }
+};
 
 // 解法2：利用Map
 var twoSum = function (nums, target) {
@@ -47,5 +56,16 @@ var twoSum = function (nums, target) {
       map.set(nums[i], i);
     }
   }
-  return [];
+};
+// Map 记录差值也可以
+var twoSum = function (nums, target) {
+  let len = nums.length;
+  let map = new Map();
+  for (let i = 0; i < len; i++) {
+    if (map.has(nums[i])) {
+      return [map.get(nums[i]), i];
+    } else {
+      map.set(target - nums[i], i);
+    }
+  }
 };
