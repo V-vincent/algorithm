@@ -60,3 +60,30 @@ var findMedianSortedArrays = function (nums1, nums2) {
   return len % 2 === 0 ? (preVal + curVal) / 2 : curVal;
 }
 // console.log(findMedianSortedArrays([1, 2], [3, 4]))
+
+
+// 面试时想到的方法
+const getMid = (arr1, arr2) => {
+  let arr = merge(arr1, arr2);
+  let res = null;
+  let mid = arr.length % 2;
+  if (mid === 0) {
+    res = (arr[arr.length / 2] + arr[arr.length / 2 - 1]) / 2;
+  } else {
+    res = arr[Math.floor(arr.length / 2)]
+  }
+  return res;
+}
+const merge = (arr1, arr2) => {
+  let res = [];
+  let [index1, index2] = [0, 0];
+  while (index1 < arr1.length && index2 < arr2.length) {
+    if (arr1[index1] > arr2[index2]) {
+      res.push(arr2[index2++])
+    } else {
+      res.push(arr1[index1++])
+    }
+  }
+  res = res.concat(...arr1.slice(index1), ...arr2.slice(index2));
+  return res;
+}
