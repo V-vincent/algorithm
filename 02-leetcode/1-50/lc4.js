@@ -87,3 +87,29 @@ const merge = (arr1, arr2) => {
   res = res.concat(...arr1.slice(index1), ...arr2.slice(index2));
   return res;
 }
+
+// 第k小数
+// 如果总数是奇数，那么就是第k小数
+// 如果总数是偶数，那么就是第k小数和第k-1小数的和除以2
+// [1, 2, 3] [4, 5, 6, 7]
+
+// var findMedianSortedArrays = (nums1, nums2) => {
+//   let len = nums1.length + nums2.length;
+//   let k = Math.floor(len / 2);
+//   let [preVal, curVal] = [0, 0];
+//   while (k > 0) {
+//     preVal = curVal;
+//     let mid = Math.floor(k / 2);
+//     if (nums1[mid] < nums2[mid]) {
+//       nums1.slice(mid);
+//       curVal = nums2[mid];
+//     } else {
+//       nums2.slice(mid);
+//       curVal = nums1[mid];
+//     }
+//     console.log(preVal, curVal);
+//     k = k - mid - 1;
+//   }
+//   return len % 2 === 0 ? (preVal + curVal) / 2 : curVal;
+// }
+// console.log(findMedianSortedArrays([1, 2, 3] [4, 5, 6, 7]))
