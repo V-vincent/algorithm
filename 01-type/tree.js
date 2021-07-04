@@ -145,6 +145,21 @@ var maxDepth = function (root) {
   return dfs(root);
 };
 
+// 124. 二叉树中的最大路径和
+// https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/
+var maxPathSum = function (root) {
+  let max = -Infinity;
+  const dfs = (root) => {
+    if (!root) return 0;
+    let left = Math.max(dfs(root.left), 0);
+    let right = Math.max(dfs(root.right), 0);
+    max = Math.max(left + right + root.val, max);
+    return Math.max(left, right) + root.val;
+  }
+  dfs(root)
+  return max;
+};
+
 // 226.翻转二叉树
 // https://leetcode-cn.com/problems/invert-binary-tree/
 var invertTree = function (root) {
