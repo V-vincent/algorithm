@@ -59,3 +59,31 @@ function getLeastBags2(n) {
   return res.length;
 }
 console.log(getLeastBags2(10));
+
+
+/**
+ * 
+ * 写一个diff 方法，用于比较两个数组，返回两数组中不同的部分，
+ * 要求考虑算法性能，使用es6/es7语法，不能使用第三方类库；
+ *
+ * usage:
+ * 
+ * console.log(diff([1,2],[2,1])); //=>[]
+ * console.log(diff([1,2,1],[2,1,1,2])); //=>[]
+ * console.log(diff([1, 2, 3], [4, 3, 1])); // =>[2,4]
+ * console.log(diff([1, [2,3], 4], [[1,2], [2,3], 3, 4])); // =>[1,[1,2], 3]
+ * console.log(diff([[1,2,3],[3,2,1],1,2,3], [2,3,1])); // => [[1,2,3],[3,2,1]]
+ */
+
+// 进制转换，10转7
+function convert(num, convert) {
+  convert = convert || 7;
+  let temp = num;
+  let res = [];
+  while (temp >= convert) {
+    res.push(temp % convert);
+    temp = Math.floor(temp / convert);
+  }
+  res.push(temp);
+  return res.reverse().join('');
+}
