@@ -5,14 +5,17 @@ function isPrimeNumber(num) {
   }
   return true;
 }
+
 // 打印
 function log() {
   return console.log.apply(console, arguments)
 }
+
 // 检查是否是数组
 function checkArray(arr) {
   return Array.isArray(arr);
 }
+
 // 交换数据
 function swap(arr, left, right) {
   let temp = arr[left];
