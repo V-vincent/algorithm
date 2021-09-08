@@ -1,7 +1,7 @@
 // 二叉树
 
 // 先序遍历：中左右
-var preOrderTree = (root) => {
+let preOrderTree = (root) => {
   let res = [];
   const dfs = (root) => {
     if (root) {
@@ -12,8 +12,8 @@ var preOrderTree = (root) => {
   }
   dfs(root);
   return res;
-}
-var preOrderTree = (root) => {
+};
+preOrderTree = (root) => {
   let res = [];
   let stack = [root];
   while (stack.length) {
@@ -23,13 +23,13 @@ var preOrderTree = (root) => {
     if (item.right) stack.push(item.right);
   }
   return res;
-}
+};
 
 // 94.二叉树的中序遍历
 // https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
 // 中序遍历：左中右
 // 递归
-var inorderTraversal = function (root) {
+let inorderTraversal = function (root) {
   let res = [];
   const dfs = (root) => {
     if (!root) return null;
@@ -41,7 +41,7 @@ var inorderTraversal = function (root) {
   return res;
 };
 // 栈
-var inorderTraversal = function (root) {
+inorderTraversal = function (root) {
   let res = [];
   let stack = [];
   while (root) {
@@ -61,7 +61,7 @@ var inorderTraversal = function (root) {
 };
 
 // 后序遍历：左右中
-var poseterOrderTree = (root) => {
+let poseterOrderTree = (root) => {
   let res = [];
   const dfs = (root) => {
     if (root) {
@@ -72,10 +72,10 @@ var poseterOrderTree = (root) => {
   }
   dfs(root);
   return res;
-}
+};
 
 // 判断是否是相同的二叉树
-var isSameTree = (root1, root2) => {
+let isSameTree = (root1, root2) => {
   const dfs = (root1, root2) => {
     if (!root1 && !root2) return true;
     if (!root1 || !root2) return false;
@@ -87,7 +87,7 @@ var isSameTree = (root1, root2) => {
 // 101. 对称二叉树
 // https://leetcode-cn.com/problems/symmetric-tree/
 // 递归
-var isSymmetric = function (root) {
+let isSymmetric = function (root) {
   const dfs = (root1, root2) => {
     if (!root1 && !root2) return true;
     if (!root1 || !root2) return false;
@@ -96,7 +96,7 @@ var isSymmetric = function (root) {
   return dfs(root.left, root.right)
 };
 // 栈
-var isSymmetric = function (root) {
+isSymmetric = function (root) {
   if (!root) return true;
   let leftStack = [], rightStack = [];
   let curLeft = root.left;
@@ -120,7 +120,7 @@ var isSymmetric = function (root) {
   return true;
 };
 // 队列
-var isSymmetric = function (root) {
+isSymmetric = function (root) {
   if (!root) return true;
   let queue = [[root.left, root.right]];
   while (queue.length) {
@@ -140,14 +140,14 @@ var isSymmetric = function (root) {
 
 // 104. 二叉树的最大深度
 // https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
-var maxDepth = function (root) {
+const maxDepth = function (root) {
   const dfs = (root) => root ? Math.max(dfs(root.left), dfs(root.right)) + 1 : 0;
   return dfs(root);
 };
 
 // 124. 二叉树中的最大路径和
 // https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/
-var maxPathSum = function (root) {
+const maxPathSum = function (root) {
   let max = -Infinity;
   const dfs = (root) => {
     if (!root) return 0;
@@ -162,7 +162,7 @@ var maxPathSum = function (root) {
 
 // 226.翻转二叉树
 // https://leetcode-cn.com/problems/invert-binary-tree/
-var invertTree = function (root) {
+const invertTree = function (root) {
   const dfs = (root) => {
     if (!root) return null;
     [root.left, root.right] = [dfs(root.right), dfs(root.left)]
@@ -173,7 +173,7 @@ var invertTree = function (root) {
 
 // 538.把二叉搜索树转换为累加树
 // https://leetcode-cn.com/problems/convert-bst-to-greater-tree/
-var convertBST = function (root) {
+const convertBST = function (root) {
   let sum = 0;
   let dfs = (root) => {
     if (!root) return null;
@@ -188,7 +188,7 @@ var convertBST = function (root) {
 
 // 543.二叉树的直径
 // https://leetcode-cn.com/problems/diameter-of-binary-tree/
-var diameterOfBinaryTree = function (root) {
+const diameterOfBinaryTree = function (root) {
   let max = 0;
   const dfs = (root) => {
     if (!root) return null;
@@ -203,7 +203,7 @@ var diameterOfBinaryTree = function (root) {
 
 // 617.合并二叉树
 // https://leetcode-cn.com/problems/merge-two-binary-trees/
-var mergeTrees = function (root1, root2) {
+const mergeTrees = function (root1, root2) {
   if (!root1 || !root2) {
     return root1 || root2
   }
