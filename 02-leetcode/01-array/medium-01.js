@@ -23,7 +23,7 @@
 // -105 <= nums[i] <= 105
 
 // 先排序，再左右向中间收拢，注意去重
-var threeSum = function (nums) {
+const threeSum = function (nums) {
   let len = nums.length
   let res = []
   nums.sort((a, b) => a - b) // 先排序
@@ -32,10 +32,9 @@ var threeSum = function (nums) {
     if (nums[i] > 0) return res
     // 去重
     if (i > 0 && nums[i] == nums[i - 1]) continue
-    let left = i + 1
-    let right = len - 1
+    let [left, right] = [i + 1, len - 1]
     while (left < right) {
-      let sum = nums[i] + nums[left] + nums[right]
+      const sum = nums[i] + nums[left] + nums[right]
       if (sum == 0) {
         res.push([nums[i], nums[left], nums[right]])
         left++
@@ -51,4 +50,51 @@ var threeSum = function (nums) {
     }
   }
   return res
-};
+}
+
+// 16. 最接近的三数之和
+// https://leetcode.cn/problems/3sum-closest
+// 给你一个长度为 n 的整数数组 nums 和 一个目标值 target。请你从 nums 中选出三个整数，使它们的和与 target 最接近。
+// 返回这三个数的和。
+// 假定每组输入只存在恰好一个解。
+//  
+// 示例 1：
+// 输入：nums = [-1,2,1,-4], target = 1
+// 输出：2
+// 解释：与 target 最接近的和是 2 (-1 + 2 + 1 = 2) 。
+
+// 示例 2：
+// 输入：nums = [0,0,0], target = 1
+// 输出：0
+
+// 提示：
+// 3 <= nums.length <= 1000
+// -1000 <= nums[i] <= 1000
+// -104 <= target <= 104
+
+// 先定义一个最小值，排序，遍历左右向中间靠拢，计算三数之和，对比
+const threeSumClosest = function (nums, target) {
+  const len = nums.length
+  // 定义一个最小值
+  let res = Infinity
+  // 排序
+  nums.sort((a, b) => a - b)
+  for (let i = 0; i < len - 2; i++) {
+    let [left, right] = [i + 1, len - 1]
+    while (left < right) {
+      const sum = nums[i] + nums[left] + nums[right]
+      // 看看res 和 sum 谁更靠近 target
+      if (Math.abs(sum - target) < Math.abs(res - target)) {
+        res = sum
+      }
+      if (sum < target) {
+        left++
+      } else if (sum > target) {
+        right--
+      } else {
+        return sum
+      }
+    }
+  }
+  return res
+}
